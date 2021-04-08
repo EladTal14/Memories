@@ -31,8 +31,7 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
 mongoose.set('useFindAndModify', false)
 
 app.get('/**', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  res.sendFile(path.join('public', 'index.html'))
 })
-console.log(1);
 
 app.listen(process.env.PORT || 5000, () => console.log(`Server running on port: ${process.env.PORT || 5000}`))
