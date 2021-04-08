@@ -16,7 +16,7 @@ app.use(cors())
 
 app.use('/posts', postRoutes)
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('public'))
+  app.use(express.static(path.resolve(__dirname, 'public')))
 } else {
   const corsOptions = {
     origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
@@ -32,9 +32,8 @@ mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: tr
   .catch((err) => console.log(err.message))
 mongoose.set('useFindAndModify', false)
 
-app.get('/**', (req, res) => {
-  // res.sendFile(path.join(__dirname, 'public', 'index.html'))
-  res.sendFile('index.html', { root: 'public' })
-})
+// app.get('/**', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'))
+// })
 
 http1.listen(process.env.PORT || 5000, () => console.log(`Server running on port: ${process.env.PORT || 5000}`))
