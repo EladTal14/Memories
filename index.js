@@ -4,7 +4,9 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import postRoutes from './routes/posts.js'
 import path from 'path'
+import http from 'http'
 const app = express()
+const http1 = http.createServer(app)
 // app.use(express.static('public'));
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
@@ -34,4 +36,4 @@ app.get('/**', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
-app.listen(process.env.PORT || 5000, () => console.log(`Server running on port: ${process.env.PORT || 5000}`))
+http1.listen(process.env.PORT || 5000, () => console.log(`Server running on port: ${process.env.PORT || 5000}`))
