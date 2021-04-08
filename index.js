@@ -1,10 +1,10 @@
-import express from 'express'
-import bodyParser from 'body-parser'
-import mongoose from 'mongoose'
-import cors from 'cors'
-import postRoutes from './routes/posts.js'
-import path from 'path'
-import http from 'http'
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const postRoutes = require('./routes/posts.js')
+const path = require('path')
+const http = require('http')
 const app = express()
 const http1 = http.createServer(app)
 // app.use(express.static('public'));
@@ -14,7 +14,6 @@ app.use(cors())
 // const PORT = process.env.PORT || 5000
 
 
-app.use('/posts', postRoutes)
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, 'public')))
 } else {
@@ -24,6 +23,7 @@ if (process.env.NODE_ENV === 'production') {
   }
   app.use(cors(corsOptions))
 }
+app.use('/posts', postRoutes)
 
 
 const CONNECTION_URL = 'mongodb+srv://elad:8dgCcE63AJei6cMe@cluster0.jspyg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
