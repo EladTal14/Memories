@@ -5,8 +5,11 @@ const cors = require('cors')
 const postRoutes = require('./routes/posts.js')
 const path = require('path')
 const http = require('http')
+const dotenv = require('dotenv')
+
 const app = express()
 const http1 = http.createServer(app)
+dotenv.config()
 // app.use(express.static('public'));
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
@@ -26,8 +29,7 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/posts', postRoutes)
 
 
-const CONNECTION_URL = 'mongodb+srv://elad:8dgCcE63AJei6cMe@cluster0.jspyg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => { })
   .catch((err) => console.log(err.message))
 mongoose.set('useFindAndModify', false)
